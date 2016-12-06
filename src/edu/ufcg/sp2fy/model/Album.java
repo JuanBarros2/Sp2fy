@@ -10,6 +10,7 @@ public class Album {
 	private ArrayList<Musica> musicas;
 	
 	public Album(String artista, String titulo, int ano) throws Exception{
+		
 		if (artista == null || artista.equals("")){
 			throw new Exception("Esse artista não é válido");
 		} else if (titulo == null || titulo.equals("")){
@@ -17,12 +18,65 @@ public class Album {
 		} else if (ano <= 1800){
 			throw new Exception("Ano de lançamento inválido");
 		}
+		
 		this.artista = artista;
 		this.titulo = titulo;
 		this.ano = ano;
 		this.musicas = new ArrayList<Musica>();
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Album other = (Album) obj;
+		if (other.artista != null && artista.equals(other.artista))
+			if (other.artista != null && titulo.equals(other.titulo))
+				return true;
+		return false;
+	}
+
+	public int getDuracao(){
+		int total = 0;
+		for(Musica musica : musicas){
+			total += musica.getDuracao();
+		}
+		return total;
+	}
+
+	public String getArtista() {
+		return artista;
+	}
+
+	public void setArtista(String artista) {
+		this.artista = artista;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
+
+	public ArrayList<Musica> getMusicas() {
+		return musicas;
+	}
+
+	public void setMusicas(ArrayList<Musica> musicas) {
+		this.musicas = musicas;
+	}
 	
 	
 }
