@@ -26,6 +26,16 @@ public class Album {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((artista == null) ? 0 : artista.hashCode());
+		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
+		return result;
+	}
+
+
+	@Override
 	public boolean equals(Object obj) {
 		if (obj == null)
 			return false;
@@ -33,11 +43,16 @@ public class Album {
 			return false;
 		Album other = (Album) obj;
 		if (other.artista != null && artista.equals(other.artista))
-			if (other.artista != null && titulo.equals(other.titulo))
+			if (other.titulo != null && titulo.equals(other.titulo))
 				return true;
 		return false;
 	}
 
+
+	public boolean addMusica(Musica musica){
+		return musicas.add(musica);
+	}
+	
 	public int getDuracao(){
 		int total = 0;
 		for(Musica musica : musicas){

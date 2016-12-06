@@ -11,9 +11,9 @@ public class AlbumTest {
 	@Test
 	public void testConstrutor() {
 		try {
-			Album albumtest = new Album("Juan", "AM",1992);
+			Album albumtest = new Album("Juan", "AM", 1992);
 		} catch (Exception e) {
-			
+		
 			e.printStackTrace();
 		}
 	}

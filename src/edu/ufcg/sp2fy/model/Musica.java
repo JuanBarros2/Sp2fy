@@ -7,7 +7,7 @@ public class Musica {
 	private String genero;
 	
 	
-	public Musica(String titulo, int duracao, String genero) throws Exception{
+	public Musica(String titulo, int duracao, String genero) throws Exception {
 		
 		if (titulo == null || titulo.equals("")){
 			throw new Exception("O título não é válido");

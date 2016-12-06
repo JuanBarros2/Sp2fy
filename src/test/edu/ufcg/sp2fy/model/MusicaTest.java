@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.ufcg.sp2fy.model.Musica;
-import junit.framework.AssertionFailedError;
 
 public class MusicaTest {
 	public Musica musica;
@@ -29,19 +28,21 @@ public class MusicaTest {
 			m.setTitulo("E");
 			assertFalse(m.equals(musica));
 		} catch (Exception e) {
-			e.printStackTrace();
+			fail();
 		}
 		
 	}
 
-	@Test
-	public void testConstrutor(){
-		try {
-			Musica m = new Musica(null, 0, "i");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	@Test(expected = Exception.class)
+	public void testConstrutorComTituloInvalido() throws Exception{
+		Musica m = new Musica(null, 1, "i");
 	}
+	
+	@Test(expected = Exception.class)
+	public void testConstrutorComAnoInvalido() throws Exception{
+		Musica m = new Musica("pn", 0, "i");
+	}
+	
 	
 
 }
