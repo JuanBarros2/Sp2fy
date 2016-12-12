@@ -19,14 +19,20 @@ public class MusicaTest {
 	public void testEquals() {
 		try {
 			Musica m = new Musica("R U mine", 4, "Rock");
+			
 			m.setGenero("indie");
-			assertTrue(m.equals(musica));
+			// O parâmetro genero é mudado para garantir que não seja levado em conta na igualdade
+			assertTrue(m.equals(musica)); 
+			
 			m.setDuracao(1);
 			assertFalse(m.equals(musica));
+			
 			m.setDuracao(4);
 			assertTrue(m.equals(musica));
+			
 			m.setTitulo("E");
 			assertFalse(m.equals(musica));
+		
 		} catch (Exception e) {
 			fail();
 		}
@@ -35,14 +41,26 @@ public class MusicaTest {
 
 	@Test(expected = Exception.class)
 	public void testConstrutorComTituloInvalido() throws Exception{
-		Musica m = new Musica(null, 1, "i");
+		new Musica(null, 1, "i");
+	}
+	
+	@Test(expected = Exception.class)
+	public void testConstrutorComTituloVazio() throws Exception{
+		new Musica("", 1, "i");
 	}
 	
 	@Test(expected = Exception.class)
 	public void testConstrutorComAnoInvalido() throws Exception{
-		Musica m = new Musica("pn", 0, "i");
+		new Musica("pn", 0, "i");
 	}
 	
+	@Test
+	public void testIsTituloEquals(){
+		assertTrue(musica.isTituloEquals("R U mine"));
+		assertFalse(musica.isTituloEquals(""));
+		assertFalse(musica.isTituloEquals(null));
+		assertFalse(musica.isTituloEquals("soad"));
+		
+	}
 	
-
 }
