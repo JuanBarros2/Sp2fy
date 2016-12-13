@@ -19,7 +19,7 @@ public class Musiteca {
 	public Musiteca() {
 		conjunto = new ArrayList<Album>();
 		favoritos = new HashMap<String, Album>();
-		//playlists = new Playlist(chave)
+		playlists = new HashMap<String, Playlist>();
 	}
 
 	@Override
@@ -64,7 +64,42 @@ public class Musiteca {
 		}
 		return conjunto.add(album);
 	}
+	
+	public boolean adicionaPlaylist(String nomePlaylist, String nomeAlbum, int faixa) throws Exception, IndexOutOfBoundsException{
+		Playlist playlist = playlists.get(nomePlaylist);
+		if (playlist == null){
+			playlist = new Playlist(nomePlaylist);
+		}
+		
+		Album album = findAlbum(nomeAlbum);
+		Musica musica = album.pesquisaFaixa(faixa);
+		
+		if (playlist.addMusica(musica)){
+			playlists.put(nomePlaylist, playlist);
+			return true;
+		}
+		
+		return false;
+	}
 
+	/**
+	 * Retorna o primeiro {@link Album} encontrado no conjunto com o título passado.
+	 * @param nome representa o parametro a ser usado na comparação.
+	 * @return album
+	 * @throws Exception caso não encontrado
+	 */
+	public Album findAlbum(String nome) throws Exception{
+		Iterator<Album> iterator = conjunto.iterator();
+		
+		while (iterator.hasNext()) {
+			Album album = iterator.next();
+			if (album.getTitulo().equalsIgnoreCase(nome)){
+				return album;
+			}
+		}
+		throw new Exception("Album nao pertence ao Perfil especificado");
+	}
+	
 	/**
 	 * Adiciona um album à lista de albuns favoritos.
 	 * @param album

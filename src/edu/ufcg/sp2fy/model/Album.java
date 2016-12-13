@@ -85,10 +85,11 @@ public class Album implements Comparable<Album>{
 	 * Entende-se "faixa localizada" como um contador que facilita a interação
 	 * com o usuário, pois o 0 não é intuitivo como número de faixa.
 	 * @param faixa int que representa a faixa a ser retornada
-	 * @return se existir, é retornado o objeto naquela posição.
+	 * @return musica
+	 * @exception caso esteja fora do range.
 	 */
-	public Musica pesquisaFaixa(int faixa){
-		return (faixa <= musicas.size() ? musicas.get(faixa - 1): null);
+	public Musica pesquisaFaixa(int faixa) throws IndexOutOfBoundsException{
+		return (musicas.get(faixa - 1));
 	}
 	
 	
