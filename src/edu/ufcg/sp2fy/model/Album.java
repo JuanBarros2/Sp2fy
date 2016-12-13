@@ -52,6 +52,23 @@ public class Album implements Comparable<Album>{
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		String retorno = "Artista = " + artista + 
+			   "\nTítulo = " + titulo + 
+			   "\nAno = " + ano + 
+			   "\n---------------------------";
+		
+		Iterator<Musica> iterator = musicas.iterator();
+		while (iterator.hasNext()) {
+			Musica musica = (Musica) iterator.next();
+			
+			retorno += "\n" + musica.toString();
+		}
+		
+		return retorno;
+	}
+
 	/**
 	 * Retorna um booleano representando se a {@link Musica} foi adicionada com sucesso.
 	 * Uma {@link Musica} é adicionada com sucesso se ela não for nula e se o ArrayList
@@ -59,8 +76,8 @@ public class Album implements Comparable<Album>{
 	 * @param musica 
 	 * @return true se a música foi adicionada.
 	 */
-	public boolean addMusica(Musica musica){
-		if (musica == null || musicas.contains(musica)){
+	public boolean adicionaMusica(Musica musica){
+		if (musica == null){
 			return false;
 		}
 		return musicas.add(musica);
@@ -70,15 +87,19 @@ public class Album implements Comparable<Album>{
 	 * Retorna um booleano representando se a {@link Musica} foi removido com sucesso.
 	 * Uma {@link Musica} é removida com sucesso se ela não for nula e se o ArrayList
 	 * suportar sua remoção.
-	 * @param musica 
+	 * @param posicao
 	 * @return true se a música foi removida.
 	 */
-	public boolean removeMusica(Musica musica){
-		if (musica == null || !musicas.contains(musica)){
+	public boolean removeMusica(int pos){
+		
+		try{
+			musicas.remove(pos - 1);
+		} catch(IndexOutOfBoundsException e){
 			return false;
 		}
-		return musicas.remove(musica);
+		return true;
 	}
+	
 	
 	/**
 	 * Retorna a faixa localizada da {@link Musica} adicionada na lista.
@@ -98,7 +119,7 @@ public class Album implements Comparable<Album>{
 	 * desse álbum. Se não existir músicas, é retornado o valor padrão, 0.
 	 * @return total de duração
 	 */
-	public int getDuracao(){
+	public int getDuracaoTotal(){
 		int total = 0;
 		
 		Iterator<Musica> iterator = musicas.iterator();
@@ -114,8 +135,8 @@ public class Album implements Comparable<Album>{
 	 * @param titulo Texto que representa o título a ser pesquisado no conjunto
 	 * @return true se existir e false caso contrário.
 	 */
-	public boolean isInAlbum(String titulo){
-		if (titulo == null || titulo.equals("")){
+	public boolean contemMusica(String titulo){
+		if (titulo == null || titulo.trim().equals("")){
 			return false;
 		}
 		
@@ -134,8 +155,8 @@ public class Album implements Comparable<Album>{
 	}
 
 	public void setArtista(String artista) throws Exception{
-		if (artista == null || artista.equals("")){
-			throw new Exception("Esse artista não é válido");
+		if (artista == null || artista.trim().equals("")){
+			throw new Exception("Artista do album nao pode ser nulo ou vazio.");
 		}
 		this.artista = artista;
 	}
@@ -145,8 +166,8 @@ public class Album implements Comparable<Album>{
 	}
 
 	public void setTitulo(String titulo) throws Exception {
-		if (titulo == null || titulo.equals("")){
-			throw new Exception("Esse título não é válido");
+		if (titulo == null || titulo.trim().equals("")){
+			throw new Exception("Titulo do album nao pode ser nulo ou vazio.");
 		}
 		this.titulo = titulo;
 	}
@@ -156,8 +177,8 @@ public class Album implements Comparable<Album>{
 	}
 
 	public void setAno(int ano) throws Exception {
-		if (ano <= 1800){
-			throw new Exception("Ano de lançamento inválido");
+		if (ano < 1900){
+			throw new Exception("Ano de lancamento do album nao pode ser inferior a 1900.");
 		}
 		this.ano = ano;
 	}
@@ -166,5 +187,21 @@ public class Album implements Comparable<Album>{
 	public int compareTo(Album o) {
 		return titulo.compareToIgnoreCase(o.getTitulo());
 	}
+	
+	public int quantidadeFaixas(){
+		return musicas.size();
+	}
+	
+	public Musica getMusica(String titulo){
+		Iterator<Musica> iterator = musicas.iterator();
+		while (iterator.hasNext()) {
+			Musica musica = (Musica) iterator.next();
+			if (musica.isTituloEquals(titulo)){
+				return musica;
+			}
+		}
+		return null;
+	}
+	
 	
 }

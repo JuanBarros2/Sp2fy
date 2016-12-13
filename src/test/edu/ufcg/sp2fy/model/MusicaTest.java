@@ -11,7 +11,7 @@ public class MusicaTest {
 	public Musica musica;
 
 	@Before
-	public void init() throws Exception{
+	public void setUp() throws Exception{
 		musica = new Musica("R U mine", 4, "Rock");
 	}
 
@@ -62,5 +62,4 @@ public class MusicaTest {
 		assertFalse(musica.isTituloEquals("soad"));
 		
 	}
-	
 }
