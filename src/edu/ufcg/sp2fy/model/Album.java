@@ -185,7 +185,7 @@ public class Album implements Comparable<Album>{
 
 	@Override
 	public int compareTo(Album o) {
-		return titulo.compareToIgnoreCase(o.getTitulo());
+		return new Integer(o.getAno());
 	}
 	
 	public int quantidadeFaixas(){

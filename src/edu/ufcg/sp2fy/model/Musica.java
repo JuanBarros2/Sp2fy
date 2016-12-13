@@ -27,17 +27,37 @@ public class Musica {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + duracao;
+		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
+		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "\"" + titulo + "\" - " + duracao
+				+ ":00 - "+ genero;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Musica))
+		if (getClass() != obj.getClass())
 			return false;
 		Musica other = (Musica) obj;
 		if (duracao != other.duracao)
 			return false;
-		if (titulo != null && titulo.equalsIgnoreCase(other.getTitulo()))
-			return true;
-		return false;
+		if (titulo == null) {
+			if (other.titulo != null)
+				return false;
+		} else if (!titulo.equals(other.titulo))
+			return false;
+		return true;
 	}
 	
 	public String getTitulo() {

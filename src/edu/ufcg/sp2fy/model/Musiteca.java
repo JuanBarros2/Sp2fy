@@ -1,7 +1,9 @@
 package edu.ufcg.sp2fy.model;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Uma Musiteca guarda
@@ -30,6 +32,7 @@ public class Musiteca {
 		result = prime * result + ((favoritos == null) ? 0 : favoritos.hashCode());
 		return result;
 	}
+	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -143,7 +146,7 @@ public class Musiteca {
 	 * @param album 
 	 * @return true se existir e false caso contrário.
 	 */
-	public boolean isInConjunto(Album album){
+	public boolean isInList(Album album){
 		if (album == null){
 			return false;
 		}
@@ -163,7 +166,7 @@ public class Musiteca {
 	 * @param album 
 	 * @return true se existir e false caso contrário.
 	 */
-	public boolean isInConjuntoFavoritos(Album album){
+	public boolean isInListFavoritos(Album album){
 		if (album == null){
 			return false;
 		}
@@ -178,5 +181,40 @@ public class Musiteca {
 		return false;
 	}
 	
+	/**
+	 * Responsável por ordenar e imprimir os albuns.
+	 */
+	public void sortedAlbuns(){
+		Collections.sort(listaAlbuns);
+		sysoAlbum(listaAlbuns);
+	}
+	
+	/**
+	 * Responsável por ordenar e imprimir os albuns favoritos.
+	 */
+	public void sortedAlbunsFavoritos(){
+		Set conjunto = favoritos.entrySet();
+		Iterator<Album> iterator = conjunto.iterator();
+		
+		ArrayList<Album> aux = new ArrayList<Album>();
+		while (iterator.hasNext()) {
+			Album album = (Album) iterator.next();
+			aux.add(album);
+		}
+		Collections.sort(aux);
+		
+		sysoAlbum(aux);
+	}
+	
+	/**
+	 * Método responsável por imprimir a lista de albuns.
+	 * @param albuns
+	 */
+	private void sysoAlbum(ArrayList<Album> albuns){
+		for (Iterator iterator = albuns.iterator(); iterator.hasNext();) {
+			Album album = (Album) iterator.next();
+			System.out.println(album + "\n\n\n");
+		}
+	}
 	
 }

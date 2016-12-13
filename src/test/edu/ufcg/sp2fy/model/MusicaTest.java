@@ -39,6 +39,11 @@ public class MusicaTest {
 		
 	}
 
+	@Test
+	public void testToString(){
+		assertEquals("\"R U mine\" - 4:00 - Rock", musica.toString());
+	}
+	
 	@Test(expected = Exception.class)
 	public void testConstrutorComTituloInvalido() throws Exception{
 		new Musica(null, 1, "i");

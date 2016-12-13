@@ -40,23 +40,61 @@ public class Pessoa {
 		this.nome = nome;
 	}
 	
+	@Override
+	public String toString() {
+		return "Nome = " + nome;
+	}
+
 	/**
-	 * Responsável por adicionar um album à coleção do usuário.
-	 * @param album recebe o álbum a ser adicionado
-	 * @return verdadeiro se a adição for executado com sucesso
+	 *@see {@link Musiteca#addAlbum(Album)}
 	 */
 	public boolean adicionaAlbum(Album album) {
 		return musiteca.addAlbum(album);
 	}
 	
 	/**
-	 * Remove um {@link Album} específico da coleção do usuário.
-	 * @param album
-	 * @return verdadeiro se a remoção for executada com sucesso.
+	 * @see {@link Musiteca#removeAlbum(Album)}
 	 */
 	public boolean removeAlbum(Album album){
 		return musiteca.removeAlbum(album);
 	}
+	
+	/**
+	 *@see {@link Musiteca#addAlbumFavorito(String, Album)}
+	 */
+	public boolean adicionaAlbumFavorito(String nomeAlbum, Album album){
+		return musiteca.addAlbumFavorito(nomeAlbum, album);
+	}
+	
+
+	/**
+	 *@see {@link Musiteca#findAlbum(String)}
+	 */
+	public Album findAlbum(String nome) throws Exception {
+		return musiteca.findAlbum(nome);
+	}
+
+	/**
+	 * @see {@link Musiteca#removeAlbumFavorito(String)}
+	 */
+	public boolean removeAlbumFavorito(String chave) {
+		return musiteca.removeAlbumFavorito(chave);
+	}
+
+	/**
+	 * @see {@link Musiteca#isInList(Album)}
+	 */
+	public boolean isInList(Album album) {
+		return musiteca.isInList(album);
+	}
+
+	/**
+	 * @see {@link Musiteca#isInListFavoritos(Album)}
+	 */
+	public boolean isInConjuntoFavoritos(Album album) {
+		return musiteca.isInListFavoritos(album);
+	}
+	
 	
 	
 }

@@ -55,15 +55,15 @@ public class MusitecaTest {
 	
 	@Test
 	public void testIsInConjunto() throws Exception{
-		assertTrue(musiteca.isInConjunto(album));
-		assertFalse(musiteca.isInConjunto(new Album("d", "a", 1990)));
-		assertFalse(musiteca.isInConjunto(null));
+		assertTrue(musiteca.isInList(album));
+		assertFalse(musiteca.isInList(new Album("d", "a", 1990)));
+		assertFalse(musiteca.isInList(null));
 	}
 	
 	@Test
 	public void testIsInConjuntoFavoritos() throws Exception{
-		assertTrue(musiteca.isInConjuntoFavoritos(album));
-		assertFalse(musiteca.isInConjuntoFavoritos(new Album("d", "a", 1990)));
-		assertFalse(musiteca.isInConjuntoFavoritos(null));
+		assertTrue(musiteca.isInListFavoritos(album));
+		assertFalse(musiteca.isInListFavoritos(new Album("d", "a", 1990)));
+		assertFalse(musiteca.isInListFavoritos(null));
 	}
 }
