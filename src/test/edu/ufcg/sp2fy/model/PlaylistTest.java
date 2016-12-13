@@ -2,6 +2,7 @@ package test.edu.ufcg.sp2fy.model;
 
 import static org.junit.Assert.*;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,7 +44,9 @@ public class PlaylistTest {
 	@Test 
 	public void testAddMusica() throws Exception{
 		assertTrue(playlist.addMusica(new Musica("DIWN", 4, "Indie")));
-		assertFalse(playlist.addMusica(new Musica("DIWN", 4, "Indie")));
+		assertTrue(playlist.addMusica(new Musica("DIWN", 4, "Indie")));
+		assertTrue(playlist.pesquisaMusicaPorNome("DIWN"));
+		assertFalse(playlist.addMusica(null));
 	}
 	
 	@Test

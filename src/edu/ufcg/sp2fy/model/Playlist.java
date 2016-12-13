@@ -15,7 +15,7 @@ public class Playlist {
 	private ArrayList<Musica> musicas;
 
 	public Playlist(String chave) throws Exception {
-		if (chave == null || chave.equals("")){
+		if (chave == null || chave.trim().equals("")){
 			throw new Exception("Chave inválida");
 		}
 		this.chave = chave;
@@ -30,7 +30,7 @@ public class Playlist {
 	 * @return true se a música foi adicionada.
 	 */
 	public boolean addMusica(Musica musica){
-		if (musica == null || musicas.contains(musica)){
+		if (musica == null){
 			return false;
 		}
 		return musicas.add(musica);

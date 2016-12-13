@@ -12,12 +12,12 @@ import java.util.Iterator;
  *
  */
 public class Musiteca {
-	private ArrayList<Album> conjunto;
+	private ArrayList<Album> listaAlbuns;
 	private HashMap<String, Album> favoritos;
 	private HashMap<String, Playlist> playlists;
 	
 	public Musiteca() {
-		conjunto = new ArrayList<Album>();
+		listaAlbuns = new ArrayList<Album>();
 		favoritos = new HashMap<String, Album>();
 		playlists = new HashMap<String, Playlist>();
 	}
@@ -26,7 +26,7 @@ public class Musiteca {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((conjunto == null) ? 0 : conjunto.hashCode());
+		result = prime * result + ((listaAlbuns == null) ? 0 : listaAlbuns.hashCode());
 		result = prime * result + ((favoritos == null) ? 0 : favoritos.hashCode());
 		return result;
 	}
@@ -40,10 +40,10 @@ public class Musiteca {
 		if (getClass() != obj.getClass())
 			return false;
 		Musiteca other = (Musiteca) obj;
-		if (conjunto == null) {
-			if (other.conjunto != null)
+		if (listaAlbuns == null) {
+			if (other.listaAlbuns != null)
 				return false;
-		} else if (!conjunto.equals(other.conjunto))
+		} else if (!listaAlbuns.equals(other.listaAlbuns))
 			return false;
 		if (favoritos == null) {
 			if (other.favoritos != null)
@@ -59,10 +59,10 @@ public class Musiteca {
 	 * @return true se o album for adicionado e false caso contrário.
 	 */
 	public boolean addAlbum(Album album){
-		if (album == null || conjunto.contains(album)){
+		if (album == null || listaAlbuns.contains(album)){
 			return false;
 		}
-		return conjunto.add(album);
+		return listaAlbuns.add(album);
 	}
 	
 	public boolean adicionaPlaylist(String nomePlaylist, String nomeAlbum, int faixa) throws Exception, IndexOutOfBoundsException{
@@ -89,7 +89,7 @@ public class Musiteca {
 	 * @throws Exception caso não encontrado
 	 */
 	public Album findAlbum(String nome) throws Exception{
-		Iterator<Album> iterator = conjunto.iterator();
+		Iterator<Album> iterator = listaAlbuns.iterator();
 		
 		while (iterator.hasNext()) {
 			Album album = iterator.next();
@@ -119,10 +119,10 @@ public class Musiteca {
 	 * @return true se o album for removido e false caso contrário.
 	 */
 	public boolean removeAlbum(Album album){
-		if (album == null || !conjunto.contains(album)){
+		if (album == null || !listaAlbuns.contains(album)){
 			return false;
 		}
-		return conjunto.remove(album);
+		return listaAlbuns.remove(album);
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class Musiteca {
 			return false;
 		}
 		
-		Iterator<Album> iterator = conjunto.iterator();
+		Iterator<Album> iterator = listaAlbuns.iterator();
 		while (iterator.hasNext()) {
 			Album correnteAlbum = iterator.next();
 			if (correnteAlbum.equals(album)){

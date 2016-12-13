@@ -45,7 +45,7 @@ public class Musica {
 	}
 	
 	public void setTitulo(String titulo) throws Exception {
-		if (titulo == null || titulo.equals("")){
+		if (titulo == null || titulo.trim().equals("")){
 			throw new Exception("O título não é válido");
 		}
 		this.titulo = titulo;
@@ -67,7 +67,7 @@ public class Musica {
 	}
 	
 	public void setGenero(String genero) throws Exception {
-		if (genero == null || genero.equals("")){
+		if (genero == null || genero.trim().equals("")){
 			throw new Exception("O gênero não é válido");
 		}
 		this.genero = genero;
