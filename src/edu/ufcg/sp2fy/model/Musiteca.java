@@ -15,12 +15,12 @@ import java.util.Set;
  */
 public class Musiteca {
 	private ArrayList<Album> listaAlbuns;
-	private HashMap<String, Album> favoritos;
+	private ArrayList<Album> favoritos;
 	private HashMap<String, Playlist> playlists;
 	
 	public Musiteca() {
 		listaAlbuns = new ArrayList<Album>();
-		favoritos = new HashMap<String, Album>();
+		favoritos = new ArrayList<Album>();
 		playlists = new HashMap<String, Playlist>();
 	}
 
@@ -108,12 +108,11 @@ public class Musiteca {
 	 * @param album
 	 * @return true se o album for adicionado e false caso contrário.
 	 */
-	public boolean addAlbumFavorito(String chave, Album album){
-		if (album == null  || chave == null || favoritos.containsKey(chave) || chave.equals("")){
+	public boolean addAlbumFavorito(Album album){
+		if (album == null){
 			return false;
 		}
-		favoritos.put(chave, album);
-		return favoritos.containsKey(chave);
+		return favoritos.add(album);
 	}
 	
 	/**
@@ -133,12 +132,11 @@ public class Musiteca {
 	 * @param album
 	 * @return true se o album for removido e false caso contrário.
 	 */
-	public boolean removeAlbumFavorito(String chave){
-		if (chave == null || !favoritos.containsKey(chave)){
+	public boolean removeAlbumFavorito(Album album){
+		if (album == null || !favoritos.contains(album)){
 			return false;
 		}
-		favoritos.remove(chave);
-		return !favoritos.containsKey(chave);
+		return favoritos.remove(album);
 	}
 	
 	/**
