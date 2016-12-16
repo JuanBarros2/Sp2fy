@@ -20,7 +20,7 @@ public class MusitecaTest {
 		musica = new Musica("RUM", 3, "ROCK");
 		album = new Album("AM", "AM", 2012);
 		musiteca.addAlbum(album);
-		musiteca.addAlbumFavorito("Gostei", album);
+		musiteca.addAlbumFavorito(album);
 	}
 	
 	@Test
@@ -32,11 +32,10 @@ public class MusitecaTest {
 	
 	@Test
 	public void testAddFavoritos() throws Exception{
-		assertFalse(musiteca.addAlbumFavorito("Gostei", album));
-		assertTrue(musiteca.addAlbumFavorito("Correr", album));
-		assertFalse(musiteca.addAlbumFavorito(null, album));
-		assertFalse(musiteca.addAlbumFavorito("", album));
-		assertFalse(musiteca.addAlbumFavorito("Gostei", null));
+		musiteca.removeAlbumFavorito(album);
+		assertTrue(musiteca.addAlbumFavorito(album));
+		assertFalse(musiteca.addAlbumFavorito(album));
+		assertFalse(musiteca.addAlbumFavorito(null));
 	}
 	
 	@Test
@@ -48,16 +47,16 @@ public class MusitecaTest {
 	
 	@Test
 	public void testRemoveFavoritos() throws Exception{
-		assertTrue(musiteca.removeAlbumFavorito("Gostei"));
-		assertFalse(musiteca.removeAlbumFavorito("Correr"));
+		assertTrue(musiteca.removeAlbumFavorito(album));
+		assertFalse(musiteca.removeAlbumFavorito(album));
 		assertFalse(musiteca.removeAlbumFavorito(null));
 	}
 	
 	@Test
 	public void testIsInConjunto() throws Exception{
-		assertTrue(musiteca.isInList(album));
-		assertFalse(musiteca.isInList(new Album("d", "a", 1990)));
-		assertFalse(musiteca.isInList(null));
+		assertTrue(musiteca.isInConjunto(album));
+		assertFalse(musiteca.isInConjunto(new Album("d", "a", 1990)));
+		assertFalse(musiteca.isInConjunto(null));
 	}
 	
 	@Test

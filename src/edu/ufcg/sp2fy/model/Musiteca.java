@@ -2,6 +2,7 @@ package edu.ufcg.sp2fy.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -14,13 +15,13 @@ import java.util.Set;
  *
  */
 public class Musiteca {
-	private ArrayList<Album> listaAlbuns;
-	private ArrayList<Album> favoritos;
+	private HashSet<Album> conjuntoAlbuns;
+	private HashSet<Album> favoritos;
 	private HashMap<String, Playlist> playlists;
 	
 	public Musiteca() {
-		listaAlbuns = new ArrayList<Album>();
-		favoritos = new ArrayList<Album>();
+		conjuntoAlbuns = new HashSet<Album>();
+		favoritos = new HashSet<Album>();
 		playlists = new HashMap<String, Playlist>();
 	}
 
@@ -28,11 +29,10 @@ public class Musiteca {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((listaAlbuns == null) ? 0 : listaAlbuns.hashCode());
+		result = prime * result + ((conjuntoAlbuns == null) ? 0 : conjuntoAlbuns.hashCode());
 		result = prime * result + ((favoritos == null) ? 0 : favoritos.hashCode());
 		return result;
 	}
-	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -43,10 +43,10 @@ public class Musiteca {
 		if (getClass() != obj.getClass())
 			return false;
 		Musiteca other = (Musiteca) obj;
-		if (listaAlbuns == null) {
-			if (other.listaAlbuns != null)
+		if (conjuntoAlbuns == null) {
+			if (other.conjuntoAlbuns != null)
 				return false;
-		} else if (!listaAlbuns.equals(other.listaAlbuns))
+		} else if (!conjuntoAlbuns.equals(other.conjuntoAlbuns))
 			return false;
 		if (favoritos == null) {
 			if (other.favoritos != null)
@@ -62,12 +62,23 @@ public class Musiteca {
 	 * @return true se o album for adicionado e false caso contrário.
 	 */
 	public boolean addAlbum(Album album){
-		if (album == null || listaAlbuns.contains(album)){
+		if (album == null){
 			return false;
 		}
-		return listaAlbuns.add(album);
+		return conjuntoAlbuns.add(album);
 	}
 	
+	/**
+	 * Responsável por adicionar uma música a uma playlist. 
+	 * É recebido o nome da playlist, o nome do album e o número da faixa. Com o nome, é verificado se já existe um,
+	 * senão existir, é criado. É pesquisado o primeiro album com o respectivo nome e então é selecionado a faixa.
+	 * @param nomePlaylist
+	 * @param nomeAlbum
+	 * @param faixa
+	 * @return true se foi adicionada com sucesso.
+	 * @throws Exception
+	 * @throws IndexOutOfBoundsException
+	 */
 	public boolean adicionaPlaylist(String nomePlaylist, String nomeAlbum, int faixa) throws Exception, IndexOutOfBoundsException{
 		Playlist playlist = playlists.get(nomePlaylist);
 		if (playlist == null){
@@ -86,24 +97,6 @@ public class Musiteca {
 	}
 
 	/**
-	 * Retorna o primeiro {@link Album} encontrado no conjunto com o título passado.
-	 * @param nome representa o parametro a ser usado na comparação.
-	 * @return album
-	 * @throws Exception caso não encontrado
-	 */
-	public Album findAlbum(String nome) throws Exception{
-		Iterator<Album> iterator = listaAlbuns.iterator();
-		
-		while (iterator.hasNext()) {
-			Album album = iterator.next();
-			if (album.getTitulo().equalsIgnoreCase(nome)){
-				return album;
-			}
-		}
-		throw new Exception("Album nao pertence ao Perfil especificado");
-	}
-	
-	/**
 	 * Adiciona um album à lista de albuns favoritos.
 	 * @param album
 	 * @return true se o album for adicionado e false caso contrário.
@@ -121,10 +114,10 @@ public class Musiteca {
 	 * @return true se o album for removido e false caso contrário.
 	 */
 	public boolean removeAlbum(Album album){
-		if (album == null || !listaAlbuns.contains(album)){
+		if (album == null || !conjuntoAlbuns.contains(album)){
 			return false;
 		}
-		return listaAlbuns.remove(album);
+		return conjuntoAlbuns.remove(album);
 	}
 
 	/**
@@ -138,25 +131,65 @@ public class Musiteca {
 		}
 		return favoritos.remove(album);
 	}
+
+	/**
+	 * Retorna o primeiro {@link Album} encontrado no conjunto com o título passado.
+	 * @param nome representa o parametro a ser usado na comparação.
+	 * @return album
+	 * @throws Exception caso não encontrado
+	 */
+	public Album findAlbum(String nome) throws Exception{
+		Iterator<Album> iterator = conjuntoAlbuns.iterator();
+		
+		while (iterator.hasNext()) {
+			Album album = iterator.next();
+			if (album.equalsTitulo(nome)){
+				return album;
+			}
+		}
+		throw new Exception("Album nao pertence ao Perfil especificado");
+	}
+	
+	/**
+	 * Retorna o {@link Album} favorito encontrado no conjunto dos favoritos com o título passado.
+	 * @param nome representa o parametro a ser usado na comparação.
+	 * @return album
+	 * @throws Exception caso não encontrado
+	 */
+	public Album findAlbumFavorito(String nome) throws Exception{
+		Iterator<Album> iterator = favoritos.iterator();
+		
+		while (iterator.hasNext()) {
+			Album album = iterator.next();
+			if (album.equalsTitulo(nome)){
+				return album;
+			}
+		}
+		throw new Exception("Album nao pertence ao Perfil especificado");
+	}
 	
 	/**
 	 * Certifica-se a existência de um objeto {@link Album} no conjunto de albuns.
 	 * @param album 
 	 * @return true se existir e false caso contrário.
 	 */
-	public boolean isInList(Album album){
+	public boolean isInConjunto(Album album){
 		if (album == null){
 			return false;
 		}
-		
-		Iterator<Album> iterator = listaAlbuns.iterator();
-		while (iterator.hasNext()) {
-			Album correnteAlbum = iterator.next();
-			if (correnteAlbum.equals(album)){
-				return true;
-			}
+		return conjuntoAlbuns.contains(album);
+	}
+	
+	/**
+	 * Retorna uma playlist se existir a chave passada.
+	 * @param chave nome da playlist a ser retornada
+	 * @return Se existir, é retornada a playlist, senão null.
+	 */
+	public Playlist getPlaylist(String chave){
+		if (chave == null || chave.trim().equals("")){
+			return null;
 		}
-		return false;
+		return playlists.get(chave);
 	}
 	
 	/**
@@ -169,30 +202,30 @@ public class Musiteca {
 			return false;
 		}
 		
-		Iterator<String> iterator = favoritos.keySet().iterator();
-		while (iterator.hasNext()) {
-			String keyAlbum = iterator.next();
-			if (favoritos.get(keyAlbum).equals(album)){
-				return true;
-			}
-		}
-		return false;
+		return favoritos.contains(album);
 	}
 	
 	/**
 	 * Responsável por ordenar e imprimir os albuns.
 	 */
 	public void sortedAlbuns(){
-		Collections.sort(listaAlbuns);
-		sysoAlbum(listaAlbuns);
+		Iterator<Album> iterator = favoritos.iterator();
+		
+		ArrayList<Album> aux = new ArrayList<Album>();
+		while (iterator.hasNext()) {
+			Album album = (Album) iterator.next();
+			aux.add(album);
+		}
+		Collections.sort(aux);
+		
+		sysoAlbum(aux);
 	}
 	
 	/**
 	 * Responsável por ordenar e imprimir os albuns favoritos.
 	 */
 	public void sortedAlbunsFavoritos(){
-		Set conjunto = favoritos.entrySet();
-		Iterator<Album> iterator = conjunto.iterator();
+		Iterator<Album> iterator = favoritos.iterator();
 		
 		ArrayList<Album> aux = new ArrayList<Album>();
 		while (iterator.hasNext()) {

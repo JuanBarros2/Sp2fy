@@ -60,10 +60,40 @@ public class Pessoa {
 	}
 	
 	/**
+	 * @see {@link Musiteca#adicionaPlaylist(String, String, int)}
+	 */
+	public boolean adicionaPlaylist(String nomePlaylist, String nomeAlbum, int faixa)
+			throws Exception, IndexOutOfBoundsException {
+		return musiteca.adicionaPlaylist(nomePlaylist, nomeAlbum, faixa);
+	}
+
+	/**
+	 * @see {@link Musiteca#isInConjunto(Album)}
+	 */
+	public boolean isInConjunto(Album album) {
+		return musiteca.isInConjunto(album);
+	}
+
+	/**
+	 * @see {@link Musiteca#getPlaylist(String)}
+	 */
+	public Playlist getPlaylist(String chave) {
+		return musiteca.getPlaylist(chave);
+	}
+
+	/**
+	 * @see {@link Musiteca#isInListFavoritos(Album)}
+	 */
+	public boolean isInListFavoritos(Album album) {
+		return musiteca.isInListFavoritos(album);
+	}
+
+
+	/**
 	 *@see {@link Musiteca#addAlbumFavorito(String, Album)}
 	 */
-	public boolean adicionaAlbumFavorito(String nomeAlbum, Album album){
-		return musiteca.addAlbumFavorito(nomeAlbum, album);
+	public boolean adicionaAlbumFavorito(Album album){
+		return musiteca.addAlbumFavorito(album);
 	}
 	
 
@@ -77,15 +107,15 @@ public class Pessoa {
 	/**
 	 * @see {@link Musiteca#removeAlbumFavorito(String)}
 	 */
-	public boolean removeAlbumFavorito(String chave) {
-		return musiteca.removeAlbumFavorito(chave);
+	public boolean removeAlbumFavorito(Album album) {
+		return musiteca.removeAlbumFavorito(album);
 	}
 
 	/**
-	 * @see {@link Musiteca#isInList(Album)}
+	 * @see {@link Musiteca#isInConjunto(Album)}
 	 */
 	public boolean isInList(Album album) {
-		return musiteca.isInList(album);
+		return musiteca.isInConjunto(album);
 	}
 
 	/**
@@ -95,6 +125,25 @@ public class Pessoa {
 		return musiteca.isInListFavoritos(album);
 	}
 	
-	
+	/**
+	 * @see {@link Musiteca#findAlbumFavorito(String)}
+	 */
+	public Album findAlbumFavorito(String nome) throws Exception {
+		return musiteca.findAlbumFavorito(nome);
+	}
+
+	/**
+	 * @see {@link Musiteca#sortedAlbuns()}
+	 */
+	public void sortedAlbuns() {
+		musiteca.sortedAlbuns();
+	}
+
+	/**
+	 * @see {@link Musiteca#sortedAlbunsFavoritos()}
+	 */
+	public void sortedAlbunsFavoritos() {
+		musiteca.sortedAlbunsFavoritos();
+	}
 	
 }

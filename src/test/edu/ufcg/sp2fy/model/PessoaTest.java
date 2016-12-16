@@ -20,7 +20,7 @@ public class PessoaTest {
 			album.adicionaMusica(new Musica("DIWN", 3, "Rock"));
 		}
 		pessoa.adicionaAlbum(album);
-		pessoa.adicionaAlbumFavorito("AM", album);
+		pessoa.adicionaAlbumFavorito(album);
 	}
 
 	@Test

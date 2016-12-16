@@ -100,7 +100,6 @@ public class Album implements Comparable<Album>{
 		return true;
 	}
 	
-	
 	/**
 	 * Retorna a faixa localizada da {@link Musica} adicionada na lista.
 	 * Entende-se "faixa localizada" como um contador que facilita a interação
@@ -203,5 +202,13 @@ public class Album implements Comparable<Album>{
 		return null;
 	}
 	
+	/**
+	 * Compara se os títulos coincidem.
+	 * @param titulo
+	 * @return true se forem iguais e false caso contrário.
+	 */
+	public boolean equalsTitulo(String titulo){
+		return this.titulo.equals(titulo);
+	}
 	
 }
